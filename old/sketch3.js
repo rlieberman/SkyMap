@@ -1,4 +1,4 @@
-
+//REWRITTEN WITH A TILE OBJECT
 var tiles = []; //array to hold all of our tile objects
 
 var my_key = 'AIzaSyDzYZyqUA9AjEif5QDItyoUd4vu4OQKfGE'; 
@@ -35,20 +35,23 @@ function setup() {
     tiles[j].imgUrl = query_url; //assign each query URL to the imageUrl property in the object
   }
 
-console.log(tiles);
+  console.log(tiles);
 
   //Display all of the images of the skies by calling createImg on all the urls
   for (var n = 0; n<tiles.length; n++) {
     // createImg(tiles[n].imgUrl);
     tiles[n].drawTile();
-  
   }
+
+//Every time you mouseover a tile, show the name of the city
+  // for (var n = 0; n<tiles.length; n++) {
+  //   tiles[n].mouseOver(showLocation);
+  // }
+
 
 }
 
-// function mouseOver() {
 
-// }
 
 
 // STEPS
