@@ -32,7 +32,7 @@ function setup() {
   }
 
 
-var urlCheckJSON = loadJSON(urlCheck, showJSON);
+var urlCheckJSON = loadJSON(urlCheck);
 console.log(urlCheckJSON);
 // console.log(imgElts);
 
