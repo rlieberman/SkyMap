@@ -18,30 +18,42 @@ function setup() {
       var latitude = pair[0]; //in that array, latitude is 0
       var longitude = pair[1]; //longitude is 1
 
-      //now construct a query URL using the latitude and longitude
+      //for every city
+      //1.construct a query URL using the latitude and longitude
       var query_url = "http://maps.googleapis.com/maps/api/streetview?size=120x120&location=" + latitude + "," + longitude + "&fov=50&heading=220&pitch=100&sensor=false&key=" + my_key;
       
-      var img = createImg(query_url); //variable img is a DOM element from that query URL
-      imgElts.unshift(img); //pushing it to array of image elements -- not sure why we need this
+      
+      //2. check to see if an image exists for that particular latitude and longitude by querying another API
+      var check_url = "http://maps.google.com/cbk?output=json&hl=en&ll=" + latitude + "," + longitude + "&radius=50&cb_client=maps_sv&v=4"
+      var json_check = loadJSON(check_url, gotData, 'jsonp'); //load the json file and log the object to the console
 
-      //passing the DOM element and the cityName to rolloverCity function
+
+      //NEXT: check if the object is empty -- write a function to check if the object is empty
+      //IF THE OBJECT IS NOT EMPTY (maybe use hasOwnProperty), then load the image DOM element
+
+
+      //3. create an image DOM element from that query URL
+      var img = createImg(query_url); //variable img is a DOM element from that query URL
+
+      //4. pushing it to array of image elements -- not sure why we need this, also unshit vs push?
+      imgElts.unshift(img); 
+
+      //5. passing the DOM element and the cityName to rolloverCity function
       rolloverCity(img, cityName); 
 
-      var urlCheck = "http://maps.google.com/cbk?output=json&hl=en&ll=" + latitude + "," + longitude + "&radius=50&cb_client=maps_sv&v=4"
-      // console.log(urlCheck);
+      
+  
   }
-
-
-var urlCheckJSON = loadJSON(urlCheck);
-console.log(urlCheckJSON);
-// console.log(imgElts);
-
 }
 
 
+function gotData (data) {
+  console.log(data);
+  console.log(jQuery.isEmptyObject(data));
+}
 
 
-// Goes with Scenario B
+//function to show the city name when you rollover it
 function rolloverCity (imgElt, cityName) {
 
    imgElt.mouseOver(showCityName); //when you mouseOver the image element ,show the city name
